@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order — Glaze Gloss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">Glaze Gloss</a>
+  <nav>
+    <ul>
+      <li><a href="index.html">Index</a></li>
+      <li><a href="shade.html">Shade</a></li>
+      <li><a href="product.html">Product</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="order.html" class="active">Order</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="blob blob-lavender"></div>
+  <div class="blob blob-pink"></div>
+  <div class="eyebrow">Ready when you are</div>
+  <h1>Place your <em>order</em>.</h1>
+  <p class="sub">Fill in your details below. We'll confirm your <span class="text-pink">total</span> and <span class="text-purple">shipping</span> by email — no account needed.</p>
+</section>
+
+<section>
+  <div class="order-grid">
+    <!-- No JavaScript: the form submits as a plain email via mailto -->
+    <form class="form-wrap" action="mailto:orders@glazegloss-example.com" method="get" enctype="text/plain">
+      <div class="field">
+        <label for="formula">Formula</label>
+        <select id="formula" name="Formula">
+          <option value="Core Gloss">Core Gloss — R315</option>
+          <option value="Plumping Gloss">Plumping Gloss — R380</option>
+          <option value="Tinted Lip Oil">Tinted Lip Oil — R350</option>
+          <option value="Starter Set">Starter Set (all 3) — R745</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="shade">Shade</label>
+        <select id="shade" name="Shade">
+          <option>Petal</option>
+          <option>Cherry Cola</option>
+          <option>Skinny Dip</option>
+          <option>Fig</option>
+          <option>Clear Coat</option>
+          <option>Coral Rush</option>
+          <option>Grape Ice</option>
+          <option>Terracotta</option>
+          <option>Honey Glaze</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="quantity">Quantity</label>
+        <select id="quantity" name="Quantity">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="Name" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="Email" placeholder="you@email.com" required>
+      </div>
+      <div class="field">
+        <label for="address">Shipping address</label>
+        <textarea id="address" name="Address" placeholder="Street, city, postcode"></textarea>
+      </div>
+      <button type="submit" class="btn btn-solid" style="border:none;">Email this order</button>
+    </form>
+
+    <div class="price-list">
+      <h3>Order summary</h3>
+      <div class="line"><span>Formula</span><span id="sum-formula">Core Gloss</span></div>
+      <div class="line"><span>Shade</span><span id="sum-shade">Petal</span></div>
+      <div class="line"><span>Quantity</span><span id="sum-qty">1</span></div>
+      <div class="line" style="border-bottom:none;"><span>Total</span><span id="sum-total" style="color:var(--gold); font-family:'Fraunces',serif; font-style:italic;">R315</span></div>
+      <p class="note">Totals update live as you choose above. Submitting the form opens your email app with your order pre-filled — we'll confirm shipping by reply.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo" style="font-size:1.1rem;">Glaze Gloss</div>
+  <div class="foot-links">
+    <a href="shade.html">Shade</a>
+    <a href="product.html">Product</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html">About</a>
+    <a href="order.html">Order</a>
+  </div>
+  <div>© 2026 Glaze Gloss</div>
+</footer>
+
+<script>
+  const prices = { "Core Gloss": 315, "Plumping Gloss": 380, "Tinted Lip Oil": 350, "Starter Set": 745 };
+
+  const formulaEl = document.getElementById('formula');
+  const shadeEl = document.getElementById('shade');
+  const qtyEl = document.getElementById('quantity');
+  const sumFormula = document.getElementById('sum-formula');
+  const sumShade = document.getElementById('sum-shade');
+  const sumQty = document.getElementById('sum-qty');
+  const sumTotal = document.getElementById('sum-total');
+
+  function updateSummary(){
+    const formula = formulaEl.value;
+    const qtyRaw = qtyEl.value;
+    const qty = qtyRaw === '4+' ? 4 : parseInt(qtyRaw, 10);
+    const total = prices[formula] * qty;
+
+    sumFormula.textContent = formula;
+    sumShade.textContent = shadeEl.value;
+    sumQty.textContent = qtyRaw;
+    sumTotal.textContent = 'R' + total.toLocaleString();
+  }
+
+  formulaEl.addEventListener('change', updateSummary);
+  shadeEl.addEventListener('change', updateSummary);
+  qtyEl.addEventListener('change', updateSummary);
+</script>
+
+</body>
+</html>
+
